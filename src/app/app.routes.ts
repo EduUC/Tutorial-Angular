@@ -22,10 +22,8 @@ export const routes: Routes = [
       import('./game/game-list/game-list.component').then((m) => m.GameListComponent),
   },
   {
-    path: 'clientes',
+    path: 'clients',
     loadComponent: () =>
-      import('./clientes/clientes-list/clientes-list.component').then(
-        (m) => m.ClientesListComponent,
-      ),
+      import('./client/client-list/client-list.component').then((m) => m.ClientListComponent),
   },
 ];

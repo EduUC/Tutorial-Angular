@@ -1,9 +1,0 @@
-import { Cliente } from './clientes';
-
-export const CLIENTES_DATA: Cliente[] = [
-  { id: 1, name: 'Cliente 1' },
-  { id: 2, name: 'Cliente 2' },
-  { id: 3, name: 'Cliente 3' },
-  { id: 4, name: 'Cliente 4' },
-  { id: 5, name: 'Cliente 5' },
-];
