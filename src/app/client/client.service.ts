@@ -1,23 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Client } from './model/client';
-import { CLIENTS_DATA } from './model/mock-client';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClientService {
-  constructor() {}
+  constructor(private http: HttpClient) {}
+
+  private baseUrl = 'http://localhost:8080/client';
 
   getClients(): Observable<Client[]> {
-    return of(CLIENTS_DATA);
+    return this.http.get<Client[]>(this.baseUrl);
   }
 
-  saveCliente(cliente: Client): Observable<Client | null> {
-    return of(null);
+  saveCliente(client: Client): Observable<Client> {
+    const { id } = client;
+    const url = id ? `${this.baseUrl}/${id}` : this.baseUrl;
+    return this.http.put<Client>(url, client);
   }
 
-  deleteCliente(id: number): Observable<void | null> {
-    return of(null);
+  deleteCliente(idClient: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${idClient}`);
   }
 }

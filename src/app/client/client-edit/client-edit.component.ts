@@ -14,22 +14,25 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './client-edit.component.scss',
 })
 export class ClientEditComponent implements OnInit {
-  client: Client = new Client();
+  client!: Client;
 
   constructor(
     public dialogRef: MatDialogRef<ClientEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { client?: Client },
     private clientService: ClientService,
   ) {}
 
   ngOnInit(): void {
-    this.client = new Client();
+    this.client = this.data.client ? Object.assign({}, this.data.client) : new Client();
   }
 
   onSave() {
-    // Implementar lógica para salvar o client
+    this.clientService.saveCliente(this.client).subscribe((result) => {
+      this.dialogRef.close();
+    });
   }
 
   onClose() {
-    // Implementar lógica para fechar o diálogo
+    this.dialogRef.close();
   }
 }
