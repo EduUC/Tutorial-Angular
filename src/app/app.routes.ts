@@ -26,4 +26,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./client/client-list/client-list.component').then((m) => m.ClientListComponent),
   },
+  {
+    path: 'prestamo',
+    loadComponent: () =>
+      import('./prestamo/prestamo-list/prestamo-list.component').then(
+        (m) => m.PrestamoListComponent,
+      ),
+  },
 ];

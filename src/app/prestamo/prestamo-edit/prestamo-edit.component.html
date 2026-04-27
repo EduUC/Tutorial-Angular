@@ -1,0 +1,79 @@
+<div class="container">
+  @if (prestamo.id) {
+    <h1>Modificar préstamo</h1>
+  } @else {
+    <h1>Crear préstamo</h1>
+  }
+
+  <form>
+    <mat-form-field appearance="fill">
+      <mat-label>Identificador</mat-label>
+      <input type="text" matInput [(ngModel)]="prestamo.id" name="id" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Juego</mat-label>
+      <mat-select [(ngModel)]="prestamo.game" name="game" required [compareWith]="compareObjects">
+        @for (game of games; track game.id) {
+          <mat-option [value]="game">{{ game.title }}</mat-option>
+        }
+      </mat-select>
+      <mat-error>Debe seleccionar un juego</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Cliente</mat-label>
+      <mat-select
+        [(ngModel)]="prestamo.client"
+        name="client"
+        required
+        [compareWith]="compareObjects"
+      >
+        @for (client of clients; track client.id) {
+          <mat-option [value]="client">{{ client.name }}</mat-option>
+        }
+      </mat-select>
+      <mat-error>Debe seleccionar un cliente</mat-error>
+    </mat-form-field>
+    <div class="date-row">
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha de préstamo</mat-label>
+        <input
+          matInput
+          [matDatepicker]="startDatePicker"
+          [(ngModel)]="prestamo.startDate"
+          name="startDate"
+          placeholder="DD/MM/YYYY"
+          required
+        />
+        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #startDatePicker></mat-datepicker>
+        <mat-error>La fecha de préstamo es obligatoria</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha de devolución</mat-label>
+        <input
+          matInput
+          [matDatepicker]="endDatePicker"
+          [(ngModel)]="prestamo.endDate"
+          placeholder="DD/MM/YYYY"
+          name="endDate"
+          required
+        />
+        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+        <mat-error>La fecha de devolución es obligatoria</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+
+  <div class="buttons">
+    <button mat-stroked-button (click)="onClose()">Cerrar</button>
+    @if (prestamo.id) {
+      <button mat-flat-button color="primary" (click)="onSave()">Guardar</button>
+    } @else {
+      <button mat-flat-button color="primary" (click)="onSave()">Crear</button>
+    }
+  </div>
+</div>

@@ -58,7 +58,7 @@ export class GameListComponent implements OnInit {
 
   onSearch(): void {
     const title = this.filterTitle;
-    const categoryId = this.filterCategory != null ? this.filterCategory.id : null;
+    const categoryId = this.filterCategory != null ? this.filterCategory.id : null!;
 
     this.gameService.getGames(title, categoryId).subscribe((games) => (this.games = games));
   }
